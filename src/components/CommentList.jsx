@@ -1,7 +1,9 @@
+import { v4 as uuidv4 } from "uuid";
+
 function CommentList({ data }) {
   let content = data.comments.map((comment) => {
     return (
-      <div className="bg-slate-300 m-1 rounded-lg p-1 flex-col">
+      <div key={uuidv4()} className="bg-slate-300 m-1 rounded-lg p-1 flex-col">
         <p className="text-cyan-900 font-bold">
           {comment.author} {comment.votes}
           {new Date(comment.created_at).toString().slice(0, 24)}

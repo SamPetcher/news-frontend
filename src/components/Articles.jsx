@@ -2,7 +2,7 @@ import Loader from "./Loader";
 import React, { useState } from "react";
 import { useGetPostsQuery } from "../features/apiSlice";
 import { Link } from "react-router-dom";
-
+import { v4 as uuidv4 } from "uuid";
 function Articles() {
   const { data, isLoading, isSuccess, isError, error } = useGetPostsQuery();
 
@@ -12,7 +12,7 @@ function Articles() {
   else if (isError) content = error;
   else if (isSuccess)
     content = data.articles.map((post) => (
-      <div key={post.id}>
+      <div key={uuidv4()}>
         <h1 className="font-sans text-lg  font-semibold">
           <Link to={`article/${post.article_id}`}>{post.title}</Link>
         </h1>
