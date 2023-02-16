@@ -3,13 +3,15 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "https://news-2p18.onrender.com/api/" }),
   endpoints: builder => ({
     getPosts: builder.query({
-      query: () => '/articles'
-    })
+      query: () => '/articles',
+    }),
+    getArticle: builder.query({
+      query: (id) => `articles/${id}`,
+    }),
+   getComments: builder.query({
+      query: (id) => `articles/${id}/comments`,
+    }),
   })
 })
 
-export const { useGetPostsQuery } = apiSlice
-
-
-
-
+export const { useGetPostsQuery, useGetArticleQuery, useGetCommentsQuery, } = apiSlice
