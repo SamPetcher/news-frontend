@@ -1,29 +1,49 @@
-import Loader from "./Loader";
-import React, { useState } from "react";
+import {
+  Spinner,
+  CardBody,
+  Card,
+  CardHeader,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
+import React from "react";
+import { Link as RouteLink } from "react-router-dom";
 import { useGetPostsQuery } from "../features/apiSlice";
 import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+
 function Articles() {
   const { data, isLoading, isSuccess, isError, error } = useGetPostsQuery();
 
-  const options = { year: "numeric", month: "long", day: "numeric" };
   let content;
-  if (isLoading) content = <Loader />;
+  if (isLoading) content = <Spinner />;
   else if (isError) content = error;
   else if (isSuccess)
     content = data.articles.map((post) => (
-      <div key={uuidv4()}>
-        <h1 className="font-sans text-lg  font-semibold">
-          <Link to={`article/${post.article_id}`}>{post.title}</Link>
-        </h1>
-        <Link className="font-mono text-slate-500">{post.author}</Link>
-        <a className="font-mono text-slate-500">
-          {new Date(post.created_at).toString().slice(0, 24)}
-        </a>
-      </div>
+      <Card key={uuidv4()} marginBottom={1} padding={0} width={"90%"}>
+        <CardHeader margin={0} padding={1}>
+          <Link to={`article/${post.article_id}`} as={RouteLink} size={"md"}>
+            {post.title}
+          </Link>
+        </CardHeader>
+        <CardBody paddingX={2} marginY={0}>
+          <Stack
+            spacing={24}
+            direction="row"
+            fontFamily={"mono"}
+            fontStyle={"italic"}
+            color={"gray.900"}
+          >
+            <Text key={uuidv4()}>{post.author}</Text>
+            <Text key={uuidv4()}>
+              {new Date(post.created_at).toString().slice(0, 16)}
+            </Text>
+          </Stack>
+        </CardBody>
+      </Card>
     ));
 
-  return <div>{content}</div>;
+  return <>{content}</>;
 }
 
 export default Articles;
