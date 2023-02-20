@@ -1,4 +1,7 @@
+import { Button, ButtonGroup } from "@chakra-ui/react";
 import { usePostVoteMutation } from "../features/apiSlice";
+import { v4 as uuidv4 } from "uuid";
+
 function Votes({ article }) {
   const [updatePost, { isLoading: isUpdating }] = usePostVoteMutation();
   const handleUpvoteClick = (e) => {
@@ -16,9 +19,15 @@ function Votes({ article }) {
   };
   // ? I just have very little idea of what is going on here. It's really difficult to use. Or maybe I'm stupid. Dunno
   return (
-    <div className="inline-flex">
-      <Button onClick={(e) => handleUpvoteClick(e)}>👍</Button>
-      <Button onClick={(e) => handleDownvoteClick(e)}>👎</Button>
+    <div key={uuidv4()} className="inline-flex">
+      <ButtonGroup isAttached>
+        <Button colorScheme={"green"} size={'xs'} onClick={(e) => handleUpvoteClick(e)}>
+          Great
+        </Button>
+        <Button colorScheme={"red"} size={'xs'} onClick={(e) => handleDownvoteClick(e)}>
+          Terrible
+        </Button>
+      </ButtonGroup>
     </div>
   );
 }

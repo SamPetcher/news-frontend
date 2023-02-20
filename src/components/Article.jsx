@@ -1,11 +1,20 @@
-// :TODO I think that all I need to do here later is add interactivity, voting etc...
-// not sure that it is important per se right now...
-import Loader from "./Loader";
+import {
+  Spinner,
+  Center,
+  Flex,
+  Badge,
+  CardHeader,
+  Card,
+  Text,
+  Heading,
+  CardBody,
+  Divider,
+  CardFooter,
+} from "@chakra-ui/react";
+
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
 import { useGetArticleQuery, useGetCommentsQuery } from "../features/apiSlice";
 import CommentList from "./CommentList";
-import { usePostVoteMutation } from "../features/apiSlice";
 import Votes from "./Votes";
 
 function Article() {
@@ -17,28 +26,43 @@ function Article() {
     isError,
     error,
   } = useGetArticleQuery(params.articleId);
+
   const { data: comments, isSuccess: commentSuccess } = useGetCommentsQuery(
     params.articleId
   );
 
   let content;
-  if (isLoading) content = <Loader />;
+  if (isLoading) content = <Spinner />;
   else if (isError) content = error;
   else if (isSuccess && commentSuccess)
     content = (
-      <div className="bg-slate-300 m-1 rounded-lg p-1 flex-col mx-5">
-        <div className="bg-slate-100 m-1 rounded-lg p-1 flex-col">
-          <h1 className="font-sans text-lg  font-semibold">
-            <p to={`article/${article.article_id}`}>{article.title}</p>
-          </h1>
-          <p className="font-mono text-slate-500">{article.votes}</p>
-          <Votes article={article} />
-          <p className="font-mono text-slate-500">{article.author}</p>
-          <a className="font-mono text-slate-500">{article.body}</a>
-        </div>
+      // <Center flexDir={"column"}>
+      <Center flexDir={"column"} width={"70%"}>
+        <Card color={"grey.900"} margin={10}>
+          <CardHeader>
+            <Heading as="h1" size="xl">
+              {article.title}
+            </Heading>
+            <Divider />
+          </CardHeader>
+          <CardBody>
+            <Text>{article.body}</Text>
+          </CardBody>
+          <Center>
+            <CardFooter>
+              <Flex direction={"column"} align="center">
+                <Votes article={article} />
+                <Badge colorScheme={"default"} fontSize={16}>
+                  {article.votes}
+                </Badge>
+              </Flex>
+            </CardFooter>
+          </Center>
+        </Card>
         <CommentList data={comments} />
-      </div>
+      </Center>
+      // </Center>
     );
-  return <div>{content}</div>;
+  return <>{content}</>;
 }
 export default Article;
