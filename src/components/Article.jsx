@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useGetArticleQuery, useGetCommentsQuery } from "../features/apiSlice";
 import CommentList from "./CommentList";
+import { usePostVoteMutation } from "../features/apiSlice";
+import Votes from "./Votes";
 
 function Article() {
   const params = useParams();
@@ -29,10 +31,12 @@ function Article() {
           <h1 className="font-sans text-lg  font-semibold">
             <p to={`article/${article.article_id}`}>{article.title}</p>
           </h1>
+          <p className="font-mono text-slate-500">{article.votes}</p>
+          <Votes article={article} />
           <p className="font-mono text-slate-500">{article.author}</p>
           <a className="font-mono text-slate-500">{article.body}</a>
         </div>
-          <CommentList data={comments} />
+        <CommentList data={comments} />
       </div>
     );
   return <div>{content}</div>;
