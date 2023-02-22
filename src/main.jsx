@@ -9,6 +9,7 @@ import store from "./app/store";
 import { createBrowserRouter, Router, RouterProvider } from "react-router-dom";
 import ErrorPage from "./components/ErrorPage";
 import Root from "./routes/root";
+import { CommentPost } from "./components/CommentPost";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Articles />,
+      },
+      {
+        path: "/dev",
+        element: <CommentPost />,
       },
     ],
   },

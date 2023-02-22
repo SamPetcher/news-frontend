@@ -22,6 +22,13 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ['Article'],
     }),
+    postComment: builder.mutation({
+      query: (data) => ({
+        url: `/articles/3/comments`,
+        method: "POST",
+        body: {username: "jessjelly", body: data},
+      }), 
+    }),
   }),
 });
 
@@ -30,4 +37,5 @@ export const {
   useGetArticleQuery,
   useGetCommentsQuery,
   usePostVoteMutation,
+  usePostCommentMutation,
 } = apiSlice;
