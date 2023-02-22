@@ -22,6 +22,10 @@ const router = createBrowserRouter([
         element: <Article />,
       },
       {
+        path: "topic/:topic",
+        element: <Articles />,
+      },
+      {
         path: "/",
         element: <Articles />,
       },
