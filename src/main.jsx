@@ -29,10 +29,7 @@ const router = createBrowserRouter([
         path: "/",
         element: <Articles />,
       },
-      {
-        path: "/dev",
-        element: <CommentPost />,
-      },
+
     ],
   },
 ]);
