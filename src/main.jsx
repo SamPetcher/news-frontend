@@ -22,13 +22,14 @@ const router = createBrowserRouter([
         element: <Article />,
       },
       {
-        path: "/",
+        path: "topic/:topic",
         element: <Articles />,
       },
       {
-        path: "/dev",
-        element: <CommentPost />,
+        path: "/",
+        element: <Articles />,
       },
+
     ],
   },
 ]);
