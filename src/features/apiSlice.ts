@@ -13,6 +13,9 @@ export const apiSlice = createApi({
     getComments: builder.query({
       query: (id) => `articles/${id}/comments`,
     }),
+    getTopics: builder.query({
+      query: (id) => `/topics`,
+    }),
     postVote: builder.mutation({
       // ? We gonna have to do some thinking here. Little diffiult :()
       query: (data) => ({
@@ -34,6 +37,7 @@ export const apiSlice = createApi({
 
 export const {
   useGetPostsQuery,
+  useGetTopicsQuery,
   useGetArticleQuery,
   useGetCommentsQuery,
   usePostVoteMutation,
